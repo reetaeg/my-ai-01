@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{member.add.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{member.add.headline}]]</h1>
+                <div>
+                    <a th:href="@{/members}" class="btn btn-secondary">[[#{member.add.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('member')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='member', field='username', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='member', field='password')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='member', field='nickname')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='member', field='email')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='member', field='profileImgUrl')}" />
+                <input type="submit" th:value="#{member.add.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

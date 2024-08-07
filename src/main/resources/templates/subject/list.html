@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{subject.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{subject.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/subjects/add}" class="btn btn-primary ms-2">[[#{subject.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${subjects.empty}">[[#{subject.list.empty}]]</div>
+            <div th:if="${!subjects.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{subject.id.label}]]</th>
+                            <th scope="col">[[#{subject.priority.label}]]</th>
+                            <th scope="col">[[#{subject.depth.label}]]</th>
+                            <th scope="col">[[#{subject.subject.label}]]</th>
+                            <th scope="col">[[#{subject.description.label}]]</th>
+                            <th scope="col">[[#{subject.isDone.label}]]</th>
+                            <th scope="col">[[#{subject.isDivide.label}]]</th>
+                            <th scope="col">[[#{subject.isFavorite.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="subject : ${subjects}">
+                            <td>[[${subject.id}]]</td>
+                            <td>[[${subject.priority}]]</td>
+                            <td>[[${subject.depth}]]</td>
+                            <td>[[${subject.subject}]]</td>
+                            <td>[[${subject.description}]]</td>
+                            <td>[[${subject.isDone}]]</td>
+                            <td>[[${subject.isDivide}]]</td>
+                            <td>[[${subject.isFavorite}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/subjects/edit/{id}(id=${subject.id})}" class="btn btn-sm btn-secondary">[[#{subject.list.edit}]]</a>
+                                    <form th:action="@{/subjects/delete/{id}(id=${subject.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{subject.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
